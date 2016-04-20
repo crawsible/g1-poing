@@ -1,5 +1,3 @@
-* Limit immobility time
-* Stop paddle movement on immobility button
 * Put paddles closer to center to start
 * Add loss condition on paddle hitting the camera/world edge
 * Scoreboard
