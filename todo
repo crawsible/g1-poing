@@ -1,4 +1,5 @@
-* Put paddles closer to center to start
+* Release stuck ball on immobility release at fixed velocity
+* Released ball velocity determined by length of immobility
 * Add loss condition on paddle hitting the camera/world edge
 * Scoreboard
-* "Charging" mechanic for immobility time with visual indicator
+* Visual indicator for immobility available
