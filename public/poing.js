@@ -40,21 +40,19 @@ function create() {
 }
 
 function update() {
-  p1Paddle.body.immovable = false;
-  p1Paddle.tint = 0xFFFFFF;
-
-  p2Paddle.body.immovable = false;
-  p2Paddle.tint = 0xFFFFFF;
-
-  if (game.input.keyboard.isDown(Phaser.KeyCode.Z)) {
-    p1Paddle.body.immovable = true;
-    p1Paddle.tint = 0xFF0000;
-  }
-
-  if (game.input.keyboard.isDown(Phaser.KeyCode.PERIOD)) {
-    p2Paddle.body.immovable = true;
-    p2Paddle.tint = 0xFF0000;
-  }
+  checkForActivation(p1Paddle, Phaser.KeyCode.Z);
+  checkForActivation(p2Paddle, Phaser.KeyCode.PERIOD);
 
   game.physics.arcade.collide(ball, paddles);
+}
+
+// private methods
+function checkForActivation(paddle, key) {
+  paddle.body.immovable = false;
+  paddle.tint = 0xFFFFFF;
+
+  if (game.input.keyboard.isDown(key)) {
+    paddle.body.immovable = true;
+    paddle.tint = 0xFF0000;
+  }
 }
