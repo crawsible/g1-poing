@@ -14,19 +14,10 @@ function create() {
   game.physics.startSystem(Phaser.Physics.ARCADE);
   paddles = game.add.group();
 
-  var paddleGraphics = new Phaser.Graphics(null, 0, 0);
-  paddleGraphics.beginFill(0xFFFF88, 1);
-  paddleGraphics.drawRect(0, 0, 10, 50);
-  var paddleTexture = paddleGraphics.generateTexture();
+  p1Paddle = createPaddle(245, 125, 1, paddles, paddleTexture());
+  p2Paddle = createPaddle(345, 125, -1, paddles, paddleTexture());
 
-  p1Paddle = createPaddle(245, 125, 1, paddles, paddleTexture);
-  p2Paddle = createPaddle(345, 125, -1, paddles, paddleTexture);
-
-  var ballGraphics = new Phaser.Graphics(null, 0, 0);
-  ballGraphics.beginFill(0xFFFFFF, 1);
-  ballGraphics.drawRect(0, 0, 10, 10);
-  var ballTexture = ballGraphics.generateTexture();
-  ball = game.add.sprite(295, 145, ballTexture);
+  ball = game.add.sprite(295, 145, ballTexture());
 
   game.physics.arcade.enable(p1Paddle);
   game.physics.arcade.enable(p2Paddle);
@@ -54,6 +45,22 @@ function update() {
 }
 
 // private methods
+
+function paddleTexture() {
+  var paddleGraphics = new Phaser.Graphics(null, 0, 0);
+  paddleGraphics.beginFill(0xFFFF88, 1);
+  paddleGraphics.drawRect(0, 0, 10, 50);
+
+  return paddleGraphics.generateTexture();
+}
+
+function ballTexture() {
+  var ballGraphics = new Phaser.Graphics(null, 0, 0);
+  ballGraphics.beginFill(0xFFFFFF, 1);
+  ballGraphics.drawRect(0, 0, 10, 10);
+
+  return ballGraphics.generateTexture();
+}
 
 function createPaddle(x, y, direction, paddles, texture) {
   var paddle = paddles.create(x, y, texture);
