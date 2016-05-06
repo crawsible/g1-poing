@@ -1,4 +1,5 @@
 * Released ball velocity determined by length of immobility
+* Add slight kickback to paddle for holding too long
 * Add loss condition on paddle hitting the camera/world edge
 * Add red indicator for lose condition area
 * change the goddamned color scheme

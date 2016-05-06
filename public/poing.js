@@ -6,6 +6,8 @@ var game = new Phaser.Game(600, 300, Phaser.AUTO, '', { preload: preload, create
 
 var p1Paddle;
 var p2Paddle;
+var p1LossArea;
+var p2LossArea;
 var paddles;
 var ball;
 
@@ -15,10 +17,10 @@ function create() {
   game.physics.startSystem(Phaser.Physics.ARCADE);
   paddles = game.add.group();
 
-  p1Paddle = createPaddle(240, 75, 1, paddles, paddleTexture());
-  p2Paddle = createPaddle(340, 75, -1, paddles, paddleTexture());
+  p1Paddle = createPaddle(220, 75, 1, paddles, paddleTexture());
+  p2Paddle = createPaddle(360, 75, -1, paddles, paddleTexture());
 
-  ball = game.add.sprite(295, 145, ballTexture());
+  ball = game.add.sprite(292.5, 142.5, ballTexture());
   ball.maxVelocity = 0;
 
   game.physics.arcade.enable(p1Paddle);
@@ -58,7 +60,7 @@ function update() {
 
 function paddleTexture() {
   var paddleGraphics = new Phaser.Graphics(null, 0, 0);
-  paddleGraphics.beginFill(0xFFFF88, 1);
+  paddleGraphics.beginFill(0xFFFFFF, 1);
   paddleGraphics.drawRect(0, 0, 20, 150);
 
   return paddleGraphics.generateTexture();
@@ -66,8 +68,8 @@ function paddleTexture() {
 
 function ballTexture() {
   var ballGraphics = new Phaser.Graphics(null, 0, 0);
-  ballGraphics.beginFill(0xFFFFFF, 1);
-  ballGraphics.drawRect(0, 0, 10, 10);
+  ballGraphics.beginFill(0x88CC44, 1);
+  ballGraphics.drawRect(0, 0, 15, 15);
 
   return ballGraphics.generateTexture();
 }
@@ -83,7 +85,7 @@ function createPaddle(x, y, direction, paddles, texture) {
 
 function handleImmobility(paddle, key) {
   paddle.body.immovable = false;
-  paddle.tint = 0xFFFFFF;
+  paddle.tint = 0x4488CC;
 
   if (paddle.immobilityRecharge <= 0) {
     paddle.immobilityRecharge = IMMOBILITY_RECHARGE;
@@ -100,7 +102,7 @@ function handleImmobility(paddle, key) {
 
     paddle.body.velocity.x = 0;
     paddle.body.immovable = true;
-    paddle.tint = 0xFF0000;
+    paddle.tint = 0xCCCCFF;
     return;
   }
 
