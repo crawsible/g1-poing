@@ -1,5 +1,6 @@
-* Release stuck ball on immobility release at fixed velocity
 * Released ball velocity determined by length of immobility
 * Add loss condition on paddle hitting the camera/world edge
+* Add red indicator for lose condition area
+* change the goddamned color scheme
 * Scoreboard
 * Visual indicator for immobility available
