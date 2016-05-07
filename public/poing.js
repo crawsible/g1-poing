@@ -1,6 +1,6 @@
 var IMMOBILITY_FRAMES = 30;
 var IMMOBILITY_RECHARGE = 60;
-var VELOCITY_POW = 1.01;
+var VELOCITY_POW = 1.005;
 
 var game = new Phaser.Game(600, 300, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
@@ -45,6 +45,7 @@ function update() {
   handleBallLaunch(p2Paddle);
 
   updateMaxVelocity(ball);
+  updatePaddleBallContact(ball);
 
   game.physics.arcade.collide(ball, paddles, function(ball, paddle) {
     if (paddle.body.immovable) {
@@ -53,6 +54,9 @@ function update() {
     } else {
       ball.body.velocity.x = paddle.body.velocity.x;
     }
+
+    ball.inContact = true;
+    ball.contactTime = 1;
   });
 }
 
@@ -113,12 +117,18 @@ function handleImmobility(paddle, key) {
 
 function handleBallLaunch(paddle) {
   if (!paddle.capturedBall || paddle.body.immovable) return;
-  ball.body.velocity.x = Math.pow(ball.maxVelocity, VELOCITY_POW) * paddle.direction;
+  ball.body.velocity.x = Math.pow(ball.maxVelocity + ball.contactTime, VELOCITY_POW) * paddle.direction;
   paddle.capturedBall = null;
+  ball.inContact = false;
 }
 
 function updateMaxVelocity(ball) {
   ball.maxVelocity = Math.max(ball.maxVelocity, Math.abs(ball.body.velocity.x))
+}
+
+function updatePaddleBallContact(ball) {
+  if (!ball.inContact) return;
+  ball.contactTime += 1;
 }
 
 function catchExtremelyFastBall(ball) {
